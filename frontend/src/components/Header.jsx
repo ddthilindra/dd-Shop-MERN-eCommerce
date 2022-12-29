@@ -1,13 +1,15 @@
 import React from 'react';
-
+import { LinkContainer } from 'react-router-bootstrap'; // stop the reload the page using bootstrap
 import { Container, Nav, Navbar } from 'react-bootstrap';
 
 const Header = () => {
   return (
     <header>
-      <Navbar bg='light' expand='lg'>
+      <Navbar bg='dark' expand='lg' variant='dark' collapseOnSelect>
         <Container>
-          <Navbar.Brand href='#'>dd-Shop</Navbar.Brand>
+          <LinkContainer to='/'>
+            <Navbar.Brand>dd-Shop</Navbar.Brand>
+          </LinkContainer>
           <Navbar.Toggle aria-controls='navbarScroll' />
           <Navbar.Collapse id='navbarScroll'>
             <Nav
@@ -16,8 +18,16 @@ const Header = () => {
               style={{ maxHeight: '100px' }}
               navbarScroll
             >
-              <Nav.Link href='#cart'><i className='fas fa-shopping-cart'></i>Cart</Nav.Link>
-              <Nav.Link href='#login'><i className='fas fa-user'></i>Signin</Nav.Link>
+              <LinkContainer to='/cart'>
+                <Nav.Link>
+                  <i className='fas fa-shopping-cart'></i>Cart
+                </Nav.Link>
+              </LinkContainer>
+              <LinkContainer to='/login'>
+                <Nav.Link>
+                  <i className='fas fa-user'></i>Signin
+                </Nav.Link>
+              </LinkContainer>
             </Nav>
           </Navbar.Collapse>
         </Container>
