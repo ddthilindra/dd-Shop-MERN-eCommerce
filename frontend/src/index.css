@@ -2,3 +2,13 @@
 main{
     min-height: 80vh;
 }
+
+/* padding only top and bottom */
+h3{
+    padding: 1rem 0;
+}
+
+/* Rating component rating class span tag margin between each star*/
+.rating span{
+    margin: 0.1rem;
+}
