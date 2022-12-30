@@ -1,5 +1,22 @@
 {
+  "name": "dshop",
+  "version": "1.0.0",
+  "description": "MERN shopping cart app",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ddthilindra/dd-SHOP-MERN-eCommerce.git"
+  },
+  "author": "ddthilindra",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ddthilindra/dd-SHOP-MERN-eCommerce/issues"
+  },
+  "homepage": "https://github.com/ddthilindra/dd-SHOP-MERN-eCommerce#readme",
   "dependencies": {
-    "react-bootstrap": "^2.7.0"
+    "express": "^4.18.2"
   }
 }
