@@ -33,12 +33,13 @@ const authMiddleware=asyncHandler(async(req, res, next) =>{
           const tokenParts = req.headers.authorization.split(' ');
 
           if (tokenParts[0] === 'Bearer' && tokenParts[1].match(/\S+\.\S+\.\S+/) !== null) {
-            
+
             try {
               const verification = jwt.verify(tokenParts[1], process.env.ACCESS_TOKEN_SECRET);
               if(verification.sub.verified === false){
                 res.status(401).json({ success: false, status: 'Unauthorized', msg: "You are not verified your email to access your account" });
               }else{
+                // fetch the user from model
                 req.user = await User.findById(verification.sub.id).select('-password')
                 req.jwt = verification;
                 next();
