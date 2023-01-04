@@ -1,11 +1,10 @@
 import axios from "axios"
-import { USER_LOGIN_FAIL, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS } from "../constants/userConstants"
+import { USER_LOGIN_FAIL, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGOUT } from "../constants/userConstants"
 
+// USER LOGIN ACTION CREATOR
 export const login = (email, password) => async (dispatch) => {
     try {
-      dispatch({
-        type: USER_LOGIN_REQUEST,
-      })
+      dispatch({type: USER_LOGIN_REQUEST})
   
       const config = {
         headers: {
@@ -34,4 +33,10 @@ export const login = (email, password) => async (dispatch) => {
             : error.message,
       })
     }
+  }
+
+  // USER LOGOUT ACTION CREATOR
+  export const logout=()=>async(dispatch)=>{
+    localStorage.removeItem('userInfo')
+    dispatch({type: USER_LOGOUT})
   }
