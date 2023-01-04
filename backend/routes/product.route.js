@@ -1,33 +1,15 @@
 import express from 'express';
 const router = express.Router();
-import asyncHandler from 'express-async-handler'; // Simple middleware for handling exceptions inside of async express routes and passing them to your express error handlers.
-import Product from '../models/product.model.js';
+import { getProductById, getProducts } from '../controllers/product.controller.js';
 
 // @desc     Fetch all products
 // @route    GET /api/products
 // @access   Public
-router.get(
-  '/',
-  asyncHandler(async (req, res) => {
-    const products = await Product.find({});
-    res.json(products);
-  })
-);
+router.get('/', getProducts);
 
 // @desc     Fetch single product
 // @route    GET /api/products/:id
 // @access   Public
-router.get(
-  '/:id',
-  asyncHandler(async (req, res) => {
-    const product = await Product.findById(req.params.id);
-    if (product) {
-      res.json(product);
-    } else {
-      res.status(404)
-      throw new Error('Product not found..!')
-    }
-  })
-);
+router.get('/:id', getProductById);
 
 export default router;
