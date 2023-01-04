@@ -17,7 +17,7 @@ const generateAuthToken=(user)=> {
     const signedToken = jwt.sign( payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: expiresIn});
 
     return {
-        token: "Bearer " + signedToken,
+        token: signedToken,
         expires: expiresIn,
         // sub: {
         //   _id: user._id,
