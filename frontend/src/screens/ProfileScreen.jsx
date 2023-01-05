@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
-import { useLocation,  useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserDetails, updateUserProfile } from '../redux/actions/userActions';
+import {
+  getUserDetails,
+  updateUserProfile,
+} from '../redux/actions/userActions';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 
 const ProfileScreen = () => {
-  const location = useLocation();
   const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
@@ -25,7 +27,7 @@ const ProfileScreen = () => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  // profile update message
+  // get profile update success true?
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
   const { success } = userUpdateProfile;
 
@@ -40,7 +42,7 @@ const ProfileScreen = () => {
         setEmail(user.email);
       }
     }
-  }, [navigate, dispatch, userInfo,user]);
+  }, [navigate, dispatch, userInfo, user]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -48,8 +50,8 @@ const ProfileScreen = () => {
       setMessage('Password do not match');
     } else {
       //dispatch update profile
-      console.log(password)
-        dispatch(updateUserProfile({id:user._id,name,email,password}));
+      console.log(password);
+      dispatch(updateUserProfile({ id: user._id, name, email, password }));
     }
   };
   return (
