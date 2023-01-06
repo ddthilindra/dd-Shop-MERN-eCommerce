@@ -6,16 +6,21 @@ import {
   productListReducer,
 } from '../reducers/productReducers';
 import { cartReducer } from '../reducers/cartReducers';
-import { userDetailsReducer, userLoginReducer, userRegisterReducer, userUpdateProfileReducer } from '../reducers/userReducers';
+import {
+  userDetailsReducer,
+  userLoginReducer,
+  userRegisterReducer,
+  userUpdateProfileReducer,
+} from '../reducers/userReducers';
 
 const reducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,
   cart: cartReducer,
   userLogin: userLoginReducer,
-  userRegister:userRegisterReducer,
-  userDetails:userDetailsReducer,
-  userUpdateProfile:userUpdateProfileReducer
+  userRegister: userRegisterReducer,
+  userDetails: userDetailsReducer,
+  userUpdateProfile: userUpdateProfileReducer,
 });
 
 // Get cart items from local storage
@@ -26,11 +31,19 @@ const cartItemsFromStorage = localStorage.getItem('cartItems')
 // Get user info from local storage
 const userInfoFromStorage = localStorage.getItem('userInfo')
   ? JSON.parse(localStorage.getItem('userInfo'))
-  : null
+  : null;
+
+// Get shipping address from local storage
+const shippingAddressFromStorage = localStorage.getItem('shippingAddress')
+  ? JSON.parse(localStorage.getItem('shippingAddress'))
+  : {};
 
 // get data to initial state
 const initialState = {
-  cart: { cartItems: cartItemsFromStorage },
+  cart: {
+    cartItems: cartItemsFromStorage,
+    shippingAddress: shippingAddressFromStorage,
+  },
   userLogin: { userInfo: userInfoFromStorage },
 };
 
