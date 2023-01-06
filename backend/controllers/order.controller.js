@@ -3,7 +3,7 @@ import Order from '../models/order.model.js';
 
 // @desc     Create new order
 // @route    POST /api/orders
-// @access   private
+// @access   Private
 export const addOrderItems = asyncHandler(async (req, res) => {
   const {
     orderItems,
@@ -20,6 +20,7 @@ export const addOrderItems = asyncHandler(async (req, res) => {
     return;
   } else {
     const order = new Order({
+      user: req.user._id,
       orderItems,
       shippingAddress,
       paymentMethod,
