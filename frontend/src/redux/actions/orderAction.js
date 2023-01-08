@@ -1,5 +1,6 @@
-import { ORDER_CREATE_FAIL, ORDER_CREATE_REQUEST, ORDER_CREATE_SUCCESS } from "../constants/orderConstansts";
+import { ORDER_CREATE_FAIL, ORDER_CREATE_REQUEST, ORDER_CREATE_SUCCESS, ORDER_DETAILS_FAIL, ORDER_DETAILS_REQUEST, ORDER_DETAILS_SUCCESS } from "../constants/orderConstansts";
 import axios from 'axios'
+
 // CREATE ORDER ACTION CREATOR
 export const createOrder = (order) => async (dispatch, getState) => {
     try {
@@ -15,7 +16,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
           Authorization: `Bearer ${userInfo.token.token}`,
         },
       };
-  console.log(order)
+      
       const { data } = await axios.post(`/api/orders`, order, config);
   
       dispatch({
@@ -25,6 +26,38 @@ export const createOrder = (order) => async (dispatch, getState) => {
     } catch (error) {
       dispatch({
         type: ORDER_CREATE_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
+  
+// GET ORDER DETAILS CREATOR
+export const getOrderDetails = (id) => async (dispatch, getState) => {
+    try {
+      dispatch({ type: ORDER_DETAILS_REQUEST });
+  
+      // token destructure from getState , from userInfo
+      const {
+        userLogin: { userInfo },
+      } = getState();
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token.token}`,
+        },
+      };
+
+      const { data } = await axios.post(`/api/orders/${id}`, config);
+  
+      dispatch({
+        type: ORDER_DETAILS_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: ORDER_DETAILS_FAIL,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message
