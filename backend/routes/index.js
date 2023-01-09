@@ -9,6 +9,6 @@ routes.use('/api/products', productRoutes);
 routes.use('/api/orders', orderRoutes);
 
 // PayPal Config Route
-routes.use('/api/config/paypal', (req,res)=> res.send(process.env.PAYPAL_CLIENT_ID));
+routes.get('/api/config/paypal', (req,res)=> res.send(process.env.PAYPAL_CLIENT_ID));
 
 export default  routes;

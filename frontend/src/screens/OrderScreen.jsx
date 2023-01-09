@@ -1,22 +1,30 @@
-import React, { useEffect } from 'react';
-import { Button, Col, Row, ListGroup, Image, Card } from 'react-bootstrap';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Col, Row, ListGroup, Image, Card } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { Link } from 'react-router-dom';
-import { getOrderDetails } from '../redux/actions/orderAction';
+import { getOrderDetails, payOrder } from '../redux/actions/orderAction';
+import axios from 'axios';
+import { PayPalButton } from 'react-paypal-button-v2';
+import { ORDER_PAY_RESET } from '../redux/constants/orderConstansts';
 
 const OrderScreen = () => {
   const params = useParams();
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const orderId = params.id;
 
+  const [sdkReady, setSdkReady] = useState(false);
+
   // get order details from state
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, loading, error } = orderDetails;
+
+  // get order pay from state
+  const orderPay = useSelector((state) => state.orderPay)
+  const { loading: loadingPay, success: successPay } = orderPay
 
   if (!loading) {
     // add two decimal funtion
@@ -30,10 +38,37 @@ const OrderScreen = () => {
     );
   }
   useEffect(() => {
-    if (!order || order._id !== orderId) {
+    // Buid paypal sdk script
+    const addPayPalScript = async () => {
+      const { data: clientId } = await axios.get('/api/config/paypal');
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
+      script.async = true;
+      script.onload = () => {
+        setSdkReady(true);
+      };
+      document.body.appendChild(script);
+    };
+
+    if (!order || order._id !== orderId || successPay) {
+      // stop the never ending loop (refeshing) bcz of useEffect. so we have to callback to ORDER_PAY_RESET to reset the state
+      dispatch({ type: ORDER_PAY_RESET });
+
       dispatch(getOrderDetails(orderId));
+    } else if (!order.isPaid) {
+      if (!window.paypal) {
+        addPayPalScript();
+      } else {
+        setSdkReady(true);
+      }
     }
-  }, [dispatch, order, orderId]);
+  }, [dispatch, order, orderId, successPay]);
+
+  const successPaymentHandler = (paymentResult) => {
+    console.log(paymentResult)
+    dispatch(payOrder(orderId, paymentResult))
+  }
 
   return loading ? (
     <Loader />
@@ -146,9 +181,19 @@ const OrderScreen = () => {
                   <Col>${order.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
-              <ListGroup.Item>
-                {error && <Message variant='danger'>{error}</Message>}
-              </ListGroup.Item>
+              {!order.isPaid && (
+                <ListGroup.Item>
+                  {loadingPay && <Loader />}
+                  {!sdkReady ? (
+                    <Loader />
+                  ) : (
+                    <PayPalButton
+                      amount={order.totalPrice}
+                      onSuccess={successPaymentHandler}
+                    />
+                  )}
+                </ListGroup.Item>
+              )}
             </ListGroup>
           </Card>
         </Col>
