@@ -30,9 +30,9 @@ export const addOrderItems = asyncHandler(async (req, res) => {
       totalPrice,
     });
 
-    const createdOrder=await order.save()
+    const createdOrder = await order.save();
 
-    res.status(201).json(createdOrder)
+    res.status(201).json(createdOrder);
   }
 });
 
@@ -40,13 +40,16 @@ export const addOrderItems = asyncHandler(async (req, res) => {
 // @route    GET /api/orders/:id
 // @access   Private
 export const getOrderById = asyncHandler(async (req, res) => {
-  const order=await Order.findById(req.params.id).populate('user','name email') // get user details and associate with order
+  const order = await Order.findById(req.params.id).populate(
+    'user',
+    'name email'
+  ); // get user details and associate with order
 
-  if(order){
-    res.json(order)
-  }else{
-    res.status(404)
-    throw new Error('Order not found..!')
+  if (order) {
+    res.json(order);
+  } else {
+    res.status(404);
+    throw new Error('Order not found..!');
   }
 });
 
@@ -54,25 +57,35 @@ export const getOrderById = asyncHandler(async (req, res) => {
 // @route    PUT /api/orders/:id/pay
 // @access   Private
 export const updateOrderToPaid = asyncHandler(async (req, res) => {
-  const order=await Order.findById(req.params.id)
-  
-  if(order){
+  const order = await Order.findById(req.params.id);
+
+  if (order) {
     // set the properties
-    order.isPaid = true
-    order.paidAt = Date.now()
+    order.isPaid = true;
+    order.paidAt = Date.now();
     // comming from paypal
     order.paymentResult = {
       id: req.body.id,
       status: req.body.status,
       update_time: req.body.update_time,
       email_address: req.body.payer.email_address,
-    }
+    };
 
-    const updatedOrder=await order.save()
+    const updatedOrder = await order.save();
 
-    res.json(updatedOrder)
-  }else{
-    res.status(404)
-    throw new Error('Order not found..!')
+    res.json(updatedOrder);
+  } else {
+    res.status(404);
+    throw new Error('Order not found..!');
   }
+});
+
+// @desc     Get logged in user orders
+// @route    PUT /api/orders/myorders
+// @access   Private
+export const getUserOrders = asyncHandler(async (req, res) => {
+  
+  const orders = await Order.find({ user: req.user._id })
+  
+  res.json(orders)
 });
