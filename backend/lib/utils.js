@@ -62,7 +62,6 @@ const authMiddleware=asyncHandler(async(req, res, next) =>{
 function adminAuthMiddleware(req, res, next) {
 
     try {
-      console.log("first")
       if(req.user && req.user.isAdmin){
         next();
       }else{
