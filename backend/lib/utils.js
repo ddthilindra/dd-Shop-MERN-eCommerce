@@ -28,7 +28,7 @@ const generateAuthToken=(user)=> {
 }
 
 const authMiddleware=asyncHandler(async(req, res, next) =>{
-    
+
         if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
           const tokenParts = req.headers.authorization.split(' ');
 
@@ -59,4 +59,22 @@ const authMiddleware=asyncHandler(async(req, res, next) =>{
         }
 })
 
-export {generateAuthToken,authMiddleware}
+function adminAuthMiddleware(req, res, next) {
+
+    try {
+      console.log("first")
+      if(req.user && req.user.isAdmin){
+        next();
+      }else{
+        res.status(401)
+        throw new Error('Not authorized as an admin')
+        res.status(401).json({ success: false, code:401, status: 'Unauthorized', msg: "Not authorized as an admin" });
+      }
+
+    } catch (err) {
+      res.status(401).json({ success: false, code:401, status: 'Unauthorized', msg: "Not authorized as an admin" });
+    }
+
+}
+
+export {generateAuthToken,authMiddleware,adminAuthMiddleware}
