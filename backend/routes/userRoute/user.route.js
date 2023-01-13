@@ -1,6 +1,6 @@
 import express from 'express';
 const router = express.Router();
-import { authUser, getAllUsers, getUserProfile, registerUser, updateUserProfile } from '../../controllers/user.controller.js';
+import { authUser, delteUser, getAllUsers, getUserProfile, registerUser, updateUserProfile } from '../../controllers/user.controller.js';
 import { authMiddleware,adminAuthMiddleware } from '../../lib/utils.js';
 
 // @route    POST /api/users/register
@@ -13,5 +13,7 @@ router.post('/login', authUser);
 router.get('/profile',authMiddleware, getUserProfile)
 // @route    PUT /api/users/profile
 router.put('/profile',authMiddleware, updateUserProfile)
+// @route    DELETE /api/users/:id
+router.delete('/:id',authMiddleware,adminAuthMiddleware, delteUser)
 
 export default router;
