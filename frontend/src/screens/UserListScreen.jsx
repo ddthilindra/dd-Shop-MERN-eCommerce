@@ -4,7 +4,7 @@ import { Table, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import { listUsers } from '../redux/actions/userActions';
+import { deleteUser, listUsers } from '../redux/actions/userActions';
 import { useNavigate } from 'react-router-dom';
 
 const UserListScreen = () => {
@@ -19,6 +19,10 @@ const UserListScreen = () => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  // get order details from state
+  const userDelete = useSelector((state) => state.userDelete);
+  const { success: successDelete } = userDelete;
+
   useEffect(() => {
     // if logout admin will be redirect to home
     if (userInfo && userInfo.isAdmin) {
@@ -26,9 +30,12 @@ const UserListScreen = () => {
     } else {
       navigate('/login');
     }
-  }, [dispatch,navigate,userInfo]);
+  }, [dispatch, navigate, userInfo, successDelete]);
 
   const deleteHandler = (id) => {
+    if (window.confirm('Are you sure')) {
+      dispatch(deleteUser(id));
+    }
   };
 
   return (
@@ -61,7 +68,7 @@ const UserListScreen = () => {
                   {user.isAdmin ? (
                     <i className='fas fa-check' style={{ color: 'green' }}></i>
                   ) : (
-                    <i className='fas fa-check' style={{ color: 'red' }}></i>
+                    <i className='fas fa-times' style={{ color: 'red' }}></i>
                   )}
                 </td>
                 <td>
