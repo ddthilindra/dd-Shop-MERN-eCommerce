@@ -126,8 +126,10 @@ export const createProduct = (id) => async (dispatch, getState) => {
 };
 
 // UPDATE PRODUCT ACTION CREATOR
-export const UpdateProduct = (product) => async (dispatch, getState) => {
+export const UpdateProduct = (id,product) => async (dispatch, getState) => {
   try {
+  
+
     dispatch({ type: PRODUCT_UPDATE_REQUEST });
 
     // token destructure from getState , from userInfo
@@ -137,12 +139,12 @@ export const UpdateProduct = (product) => async (dispatch, getState) => {
 
     const config = {
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${userInfo.token.token}`,
       },
     };
 
-    const { data } = await axios.put(`/api/products/${product._id}`, product, config);
+    const { data } = await axios.put(`/api/products/${id}`, product, config);
 
     dispatch({
       type: PRODUCT_UPDATE_SUCCESS,

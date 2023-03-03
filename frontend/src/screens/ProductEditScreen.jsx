@@ -5,7 +5,10 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import { listProductDetails, UpdateProduct } from '../redux/actions/productActions';
+import {
+  listProductDetails,
+  UpdateProduct,
+} from '../redux/actions/productActions';
 import { PRODUCT_UPDATE_RESET } from '../redux/constants/productConstants';
 
 const ProductEditScreen = () => {
@@ -29,7 +32,11 @@ const ProductEditScreen = () => {
 
   // get product update from state , need know success or not
   const productUpdate = useSelector((state) => state.productUpdate);
-  const { loading:loadingUpdate, error:errorUpdate, success:successUpdate } = productUpdate;
+  const {
+    loading: loadingUpdate,
+    error: errorUpdate,
+    success: successUpdate,
+  } = productUpdate;
 
   useEffect(() => {
     if (successUpdate) {
@@ -53,16 +60,16 @@ const ProductEditScreen = () => {
   // Update product action
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(UpdateProduct({
-        _id:productId,
-        name,
-        price,
-        image,
-        brand,
-        category,
-        description,
-        countInStock
-    }))
+    const productUpdateDate = new FormData();
+    productUpdateDate.append('name', name);
+    productUpdateDate.append('price', price);
+    productUpdateDate.append('image', image);
+    productUpdateDate.append('brand', brand);
+    productUpdateDate.append('category', category);
+    productUpdateDate.append('description', description);
+    productUpdateDate.append('countInStock', countInStock);
+    
+    dispatch(UpdateProduct( productId ,productUpdateDate ));
   };
 
   return (
@@ -108,6 +115,10 @@ const ProductEditScreen = () => {
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
               ></Form.Control>
+
+              <Form.Group controlId='formFile' className='mb-3'>
+                <Form.Control type='file' onChange={(e)=> setImage(e.target.files[0])} />
+              </Form.Group>
             </Form.Group>
 
             <Form.Group controlId='brand'>
