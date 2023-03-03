@@ -126,10 +126,8 @@ export const createProduct = (id) => async (dispatch, getState) => {
 };
 
 // UPDATE PRODUCT ACTION CREATOR
-export const UpdateProduct = (id,product) => async (dispatch, getState) => {
+export const UpdateProduct = (id, product) => async (dispatch, getState) => {
   try {
-  
-
     dispatch({ type: PRODUCT_UPDATE_REQUEST });
 
     // token destructure from getState , from userInfo
