@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Row, ListGroup, Image, Card, Button } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
@@ -20,6 +20,7 @@ import {
 const OrderScreen = () => {
   const params = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const orderId = params.id;
 
@@ -53,6 +54,9 @@ const OrderScreen = () => {
     );
   }
   useEffect(() => {
+    if(!userInfo){
+      navigate('/login')
+    }
     // Buid paypal sdk script
     const addPayPalScript = async () => {
       const { data: clientId } = await axios.get('/api/config/paypal');
@@ -214,8 +218,8 @@ const OrderScreen = () => {
                   )}
                 </ListGroup.Item>
               )}
-              {loadingDeliver && <Loader />}
-              {userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+              { loadingDeliver && <Loader />}
+              { userInfo && userInfo.isAdmin && order.isPaid && !order.isDelivered && (
                 <ListGroup.Item>
                   <Button
                     type='button'
