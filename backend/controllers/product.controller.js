@@ -62,8 +62,9 @@ export const createProduct = asyncHandler(async (req, res) => {
 // @route    PUT /api/products/:id
 // @access   Private/Admin
 export const updateProduct = asyncHandler(async (req, res) => {
-  const { name, price, description, image, brand, category, countInStock } =
-    req.body;
+  const { name, price, description, brand, category, countInStock } = req.body;
+
+  const image = req.file.path;
 
   const product = await Product.findById(req.params.id);
 

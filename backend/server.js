@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import connectDB from './config/db.js';
+import path from 'path';
 import { notFound,errorHandler } from './middleware/error.middleware.js';
 
 import indexRoute from './routes/index.js';
@@ -18,6 +19,11 @@ app.get('/', (req, res) => {
 });
 
 app.use("/", indexRoute);
+
+// make upload folder static in root
+const __dirname =path.resolve()
+app.use('/uploads',express.static(path.join(__dirname,'/uploads')))
+
 const PORT = process.env.PORT || 5000;
 
 app.use(notFound)
