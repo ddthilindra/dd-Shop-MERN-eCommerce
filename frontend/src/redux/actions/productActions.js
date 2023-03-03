@@ -9,6 +9,9 @@ import {
   PRODUCT_DELETE_REQUEST,
   PRODUCT_DELETE_SUCCESS,
   PRODUCT_DELETE_FAIL,
+  PRODUCT_CREATE_REQUEST,
+  PRODUCT_CREATE_SUCCESS,
+  PRODUCT_CREATE_FAIL,
 } from '../constants/productConstants';
 
 // PRODUCT LIST ACTION CREATOR
@@ -55,7 +58,7 @@ export const listProductDetails = (id) => async (dispatch) => {
 };
 
 // DELETE PRODUCT ACTION CREATOR
-export const deleteProduct = (id) => async (dispatch, getState) => { 
+export const deleteProduct = (id) => async (dispatch, getState) => {
   try {
     dispatch({ type: PRODUCT_DELETE_REQUEST });
 
@@ -73,11 +76,44 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
     await axios.delete(`/api/products/${id}`, config);
 
     dispatch({
-      type: PRODUCT_DELETE_SUCCESS
+      type: PRODUCT_DELETE_SUCCESS,
     });
   } catch (error) {
     dispatch({
       type: PRODUCT_DELETE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+// CREATE PRODUCT ACTION CREATOR
+export const createProduct = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: PRODUCT_CREATE_REQUEST });
+
+    // token destructure from getState , from userInfo
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token.token}`,
+      },
+    };
+
+    const { data } = await axios.post(`/api/products`, {}, config);
+
+    dispatch({
+      type: PRODUCT_CREATE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_CREATE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
