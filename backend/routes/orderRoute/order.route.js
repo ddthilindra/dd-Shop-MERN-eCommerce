@@ -1,7 +1,7 @@
 import express from 'express';
 const router = express.Router();
-import { addOrderItems, getOrderById, getUserOrders, updateOrderToPaid } from '../../controllers/order.controller.js';
-import { authMiddleware } from '../../lib/utils.js';
+import { addOrderItems, getOrderById, getOrders, getUserOrders, updateOrderToPaid } from '../../controllers/order.controller.js';
+import { adminAuthMiddleware, authMiddleware } from '../../lib/utils.js';
 
 // @route    POST /api/orders
 router.post('/',authMiddleware, addOrderItems);
@@ -11,5 +11,7 @@ router.get('/myorders',authMiddleware, getUserOrders);
 router.get('/:id',authMiddleware, getOrderById);
 // @route    PUT /api/orders/:id/pay
 router.put('/:id/pay',authMiddleware, updateOrderToPaid);
+// @route    GET /api/orders
+router.get('/',authMiddleware,adminAuthMiddleware, getOrders);
 
 export default router;
