@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { Col, Row, ListGroup, Image, Card } from 'react-bootstrap';
+import { Col, Row, ListGroup, Image, Card, Button } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { Link } from 'react-router-dom';
-import { getOrderDetails, payOrder } from '../redux/actions/orderAction';
+import {
+  deliverOrder,
+  getOrderDetails,
+  payOrder,
+} from '../redux/actions/orderAction';
 import axios from 'axios';
 import { PayPalButton } from 'react-paypal-button-v2';
-import { ORDER_PAY_RESET } from '../redux/constants/orderConstansts';
+import {
+  ORDER_DELIVER_RESET,
+  ORDER_PAY_RESET,
+} from '../redux/constants/orderConstansts';
 
 const OrderScreen = () => {
   const params = useParams();
@@ -23,8 +30,16 @@ const OrderScreen = () => {
   const { order, loading, error } = orderDetails;
 
   // get order pay from state
-  const orderPay = useSelector((state) => state.orderPay)
-  const { loading: loadingPay, success: successPay } = orderPay
+  const orderPay = useSelector((state) => state.orderPay);
+  const { loading: loadingPay, success: successPay } = orderPay;
+
+  // get order deliver from state
+  const orderDeliver = useSelector((state) => state.orderDeliver);
+  const { loading: loadingDeliver, success: successDeliver } = orderDeliver;
+
+  // get order details from state
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   if (!loading) {
     // add two decimal funtion
@@ -51,9 +66,10 @@ const OrderScreen = () => {
       document.body.appendChild(script);
     };
 
-    if (!order || order._id !== orderId || successPay) {
+    if (!order || order._id !== orderId || successPay || successDeliver) {
       // stop the never ending loop (refeshing) bcz of useEffect. so we have to callback to ORDER_PAY_RESET to reset the state
       dispatch({ type: ORDER_PAY_RESET });
+      dispatch({ type: ORDER_DELIVER_RESET });
 
       dispatch(getOrderDetails(orderId));
     } else if (!order.isPaid) {
@@ -63,12 +79,16 @@ const OrderScreen = () => {
         setSdkReady(true);
       }
     }
-  }, [dispatch, order, orderId, successPay]);
+  }, [dispatch, order, orderId, successDeliver, successPay]);
 
   const successPaymentHandler = (paymentResult) => {
-    console.log(paymentResult)
-    dispatch(payOrder(orderId, paymentResult))
-  }
+    console.log(paymentResult);
+    dispatch(payOrder(orderId, paymentResult));
+  };
+
+  const deliverHandler = () => {
+    dispatch(deliverOrder(order));
+  };
 
   return loading ? (
     <Loader />
@@ -192,6 +212,18 @@ const OrderScreen = () => {
                       onSuccess={successPaymentHandler}
                     />
                   )}
+                </ListGroup.Item>
+              )}
+              {loadingDeliver && <Loader />}
+              {userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+                <ListGroup.Item>
+                  <Button
+                    type='button'
+                    className='btn btn-block'
+                    onClick={deliverHandler}
+                  >
+                    Mark As Delivered
+                  </Button>
                 </ListGroup.Item>
               )}
             </ListGroup>
