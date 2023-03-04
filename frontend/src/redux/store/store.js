@@ -6,6 +6,7 @@ import {
   productDeleteReducer,
   productDetailsReducer,
   productListReducer,
+  productReviewCreateReducer,
   productUpdateReducer,
 } from '../reducers/productReducers';
 import { cartReducer } from '../reducers/cartReducers';
@@ -18,28 +19,36 @@ import {
   userUpdateProfileReducer,
   userUpdateReducer,
 } from '../reducers/userReducers';
-import { orderCreateReducer, orderDeailsReducer, orderDeliverReducer, orderListMyReducer, orderListReducer, orderPayReducer } from '../reducers/orderReducers';
+import {
+  orderCreateReducer,
+  orderDeailsReducer,
+  orderDeliverReducer,
+  orderListMyReducer,
+  orderListReducer,
+  orderPayReducer,
+} from '../reducers/orderReducers';
 
 const reducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,
-  productDelete:productDeleteReducer,
-  productCreate:productCreateReducer,
-  productUpdate:productUpdateReducer,
+  productDelete: productDeleteReducer,
+  productCreate: productCreateReducer,
+  productUpdate: productUpdateReducer,
+  productReviewCreate: productReviewCreateReducer,
   cart: cartReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,
   userUpdateProfile: userUpdateProfileReducer,
-  userList:userListReducer,
-  userDelete:userDeleteReducer,
-  userUpdate:userUpdateReducer,
-  orderCreate:orderCreateReducer,
-  orderDetails:orderDeailsReducer,
-  orderPay:orderPayReducer,
-  orderListMy:orderListMyReducer,
-  orderList:orderListReducer,
-  orderDeliver:orderDeliverReducer,
+  userList: userListReducer,
+  userDelete: userDeleteReducer,
+  userUpdate: userUpdateReducer,
+  orderCreate: orderCreateReducer,
+  orderDetails: orderDeailsReducer,
+  orderPay: orderPayReducer,
+  orderListMy: orderListMyReducer,
+  orderList: orderListReducer,
+  orderDeliver: orderDeliverReducer,
 });
 
 // Get cart items from local storage
