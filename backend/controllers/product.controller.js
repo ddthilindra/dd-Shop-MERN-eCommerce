@@ -5,8 +5,13 @@ import Product from '../models/product.model.js';
 // @route    GET /api/products
 // @access   Public
 export const getProducts = asyncHandler(async (req, res) => {
-  const products = await Product.find({});
-  res.json(products);
+  const pageSize = 4;
+  const page = Number(req.query.pageNumber) || 1;
+
+  const count = await Product.countDocuments({});
+  const products = await Product.find({}).limit(pageSize).skip(pageSize * (page - 1));
+
+  res.json({ products, page, pages: Math.ceil(count / pageSize) });
 });
 
 // @desc     Fetch single product
@@ -96,7 +101,9 @@ export const createProductReview = asyncHandler(async (req, res) => {
 
   if (product) {
     // check user id in reviews for specific product
-    const alreadyReviewed = product.reviews.find((r) => r.user.toString() === req.user._id.toString());
+    const alreadyReviewed = product.reviews.find(
+      (r) => r.user.toString() === req.user._id.toString()
+    );
 
     if (alreadyReviewed) {
       res.status(400);
@@ -114,14 +121,16 @@ export const createProductReview = asyncHandler(async (req, res) => {
     // push review to product review array
     product.reviews.push(review);
 
-    // update review length to number of review count 
+    // update review length to number of review count
     product.numReviews = product.reviews.length;
 
     // update product rating
-    product.rating = product.reviews.reduce((acc, item) => item.rating + acc, 0) / product.reviews.length;
+    product.rating =
+      product.reviews.reduce((acc, item) => item.rating + acc, 0) /
+      product.reviews.length;
 
     await product.save();
-    
+
     res.status(201).json({ message: 'Review added' });
   } else {
     res.status(404);
