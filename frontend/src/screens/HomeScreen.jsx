@@ -8,6 +8,7 @@ import Paginate from '../components/Paginate';
 import { listProducts } from '../redux/actions/productActions';
 import { useParams } from 'react-router-dom';
 import ProductCarousel from '../components/ProductCarousel';
+import Meta from './Meta';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ const HomeScreen = () => {
 
   return (
     <>
+    <Meta />
     { /*!keyword &&*/ <ProductCarousel /> }
       <h1>Latest Product</h1>
       {loading ? (

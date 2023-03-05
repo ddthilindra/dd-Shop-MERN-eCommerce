@@ -19,6 +19,7 @@ import {
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { PRODUCT_CREATE_REVIEW_RESET } from '../redux/constants/productConstants';
+import Meta from './Meta';
 
 const ProductScreen = () => {
   const [qty, setQty] = useState(1);
@@ -79,6 +80,7 @@ const ProductScreen = () => {
         <Message variant='danger'>{error}</Message>
       ) : (
         <>
+        <Meta title={product.name}/>
           <Row>
             {/* image */}
             <Col md={6}>
