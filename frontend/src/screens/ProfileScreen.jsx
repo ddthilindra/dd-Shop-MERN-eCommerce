@@ -10,6 +10,7 @@ import {
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { listMyOrder } from '../redux/actions/orderAction';
+import { USER_UPDATE_PROFILE_RESET } from '../redux/constants/userConstants';
 
 const ProfileScreen = () => {
   const navigate = useNavigate();
@@ -34,14 +35,15 @@ const ProfileScreen = () => {
   const { success } = userUpdateProfile;
 
   // get user info from state
-  const orderListMy = useSelector((state) => state.orderListMy)
-  const { loading: loadingOrders, error: errorOrders, orders } = orderListMy
+  const orderListMy = useSelector((state) => state.orderListMy);
+  const { loading: loadingOrders, error: errorOrders, orders } = orderListMy;
 
   useEffect(() => {
     if (!userInfo) {
       navigate('/login');
     } else {
-      if (!user.name) {
+      if (!user || !user.name || success) {
+        dispatch({ type: USER_UPDATE_PROFILE_RESET });
         dispatch(getUserDetails('profile'));
         dispatch(listMyOrder());
       } else {
@@ -49,7 +51,7 @@ const ProfileScreen = () => {
         setEmail(user.email);
       }
     }
-  }, [navigate, dispatch, userInfo, user]);
+  }, [navigate, dispatch, userInfo, user, success]);
 
   const submitHandler = (e) => {
     e.preventDefault();
