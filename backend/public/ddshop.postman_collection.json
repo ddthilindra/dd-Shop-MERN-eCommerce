@@ -1,0 +1,783 @@
+{
+	"info": {
+		"_postman_id": "108bf328-7551-4a51-9522-d66c3955bac1",
+		"name": "dd shop",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15328209"
+	},
+	"item": [
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Get All Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/products",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Product By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/products/6401f9c5f423d9d91c21d940",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"6401f9c5f423d9d91c21d940"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiaWQiOiI2M2MyZWY1YzQxZWJmODY3MTBjYjUzZWUiLCJ2ZXJpZmllZCI6dHJ1ZX0sImlhdCI6MTY3NzgzODM5NTY3MSwiZXhwIjoxNjc3ODM5NjA1MjcxfQ.ykC5J4J4X10RXzFHjczTfCnwYTKw1WVoPvUH2mCr_es",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/products/63c2ef5f41ebf86710cb53f2",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"63c2ef5f41ebf86710cb53f2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiaWQiOiI2NDAxY2RmMmM4NTlhZGVhMmMzNWY3OGYiLCJ2ZXJpZmllZCI6dHJ1ZX0sImlhdCI6MTY3Nzg0MjE0NjE5MiwiZXhwIjoxNjc3ODQzMzU1NzkyfQ.D0XpGFQNggcxFZhLWWJJrCXJNPTEdEi3ukMFFVbKeeY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/products/",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"products",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiaWQiOiI2NDAxY2RmMmM4NTlhZGVhMmMzNWY3OGYiLCJ2ZXJpZmllZCI6dHJ1ZX0sImlhdCI6MTY3Nzg0MjE0NjE5MiwiZXhwIjoxNjc3ODQzMzU1NzkyfQ.D0XpGFQNggcxFZhLWWJJrCXJNPTEdEi3ukMFFVbKeeY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "asdasd",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "12",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/D:/Wallpaper/dark-blur.jpg"
+								},
+								{
+									"key": "brand",
+									"value": "asdasd",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "sadasd",
+									"type": "text"
+								},
+								{
+									"key": "countInStock",
+									"value": "12",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "asdasd",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{localhost}}/api/products/6401f9c5f423d9d91c21d940",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"6401f9c5f423d9d91c21d940"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Image Upload",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/D:/Wallpaper/dark-blur.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{localhost}}/api/upload",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add New Product Review",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiaWQiOiI2NDAxY2RmMmM4NTlhZGVhMmMzNWY3OTAiLCJ2ZXJpZmllZCI6dHJ1ZX0sImlhdCI6MTY3NzkzNzgwNzI2NywiZXhwIjoxNjc3OTM5MDE2ODY3fQ.R3ey0mdH0e9xWHJ9ARFX3-qWNrl-C38ak1o8Fz2vuFU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rating\":5,\r\n    \"comment\":\"great\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/products/6401cdf2c859adea2c35f794/reviews",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"6401cdf2c859adea2c35f794",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Top Rated Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/products/top",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"top"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users & Auth",
+			"item": [
+				{
+					"name": "POST Users Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"TOKEN\", pm.response.json().token.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"deshitha@example.com\",\r\n    \"password\":\"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/users/login",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Profile",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiaWQiOiI2M2IxZGMzZjU0ZTJhN2E5YjgyMjVmOGYiLCJ2ZXJpZmllZCI6dHJ1ZX0sImlhdCI6MTY3MjgzMDgzMDIxOSwiZXhwIjoxNjcyODMyMDM5ODE5fQ.3RZLmzKmGXTa_4fRoRAckKMJfQrJHi-Tx7DhXEMr1pQ",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{localhost}}/api/users/profile",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Users Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"deshitha\",\r\n    \"email\":\"deshitha@example.com\",\r\n    \"password\":\"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/users",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Update User Profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"ddname\",\r\n    \"email\":\"ddname@example.com\",\r\n    \"password\":\"1234567\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/users/profile",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "POST Add New Order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orderItems\": [\r\n        {\r\n            \"product\": \"63b1dc3f54e2a7a9b8225f92\",\r\n            \"name\": \"Airpods Wireless Bluetooth Headphones\",\r\n            \"image\": \"/images/airpods.jpg\",\r\n            \"price\": 89.99,\r\n            \"countInStock\": 10,\r\n            \"qty\": 8\r\n        }\r\n    ],\r\n    \"shippingAddress\": {\r\n        \"address\": \"3/A, Pitakoratuwa, Deiyandara\",\r\n        \"city\": \"Matara\",\r\n        \"postalCode\": \"81320\",\r\n        \"country\": \"Sri Lanka\"\r\n    },\r\n    \"paymentMethod\": \"Paypal\",\r\n    \"itemPrice\": 123.12,\r\n    \"taxPrice\": 120.00,\r\n    \"shippingPrice\": 100,\r\n    \"totalPrice\": 200\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/orders",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Order By ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/orders/63baa366824f7d8b552fd143",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"orders",
+								"63baa366824f7d8b552fd143"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Update Order To Paid",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"id\": \"9A120076EW048892C\",\r\n   \"status\": \"COMPLETED\",\r\n   \"update_time\": \"2023-01-09T13:23:09Z\",\r\n   \"payer\":{\r\n       \"email_address\": \"sb-iv4347y20985119@personal.example.com\"\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/orders/63bc0e5ff63f067b80fe7db1/pay",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"orders",
+								"63bc0e5ff63f067b80fe7db1",
+								"pay"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Get logged user's  orders",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/orders/myorders",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"orders",
+								"myorders"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "DELETE Delete a User for Admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/users/63c12a5f632fcc93b8f80179",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"63c12a5f632fcc93b8f80179"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Get All Users for Admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiaWQiOiI2M2JkYzU3NDM1OWEyNjViNDQxYjgzZDQiLCJ2ZXJpZmllZCI6dHJ1ZX0sImlhdCI6MTY3MzQxOTEzODYwMywiZXhwIjoxNjczNDIwMzQ4MjAzfQ.f8sac6Zxp9_jUUEV5m46o1xdn3N_kMaggg67lb4CvDQ",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{localhost}}/api/users",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Get User By ID for Admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/users/63c2ef5c41ebf86710cb53ef",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"63c2ef5c41ebf86710cb53ef"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Update User By ID for Admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"ddthilindra\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/users/63c2ef5c41ebf86710cb53ef",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"63c2ef5c41ebf86710cb53ef"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE  Product By ID for admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/products/63b1dc3f54e2a7a9b8225f94",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"63b1dc3f54e2a7a9b8225f94"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Orders for Admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiaWQiOiI2NDAxY2RmMmM4NTlhZGVhMmMzNWY3OGYiLCJ2ZXJpZmllZCI6dHJ1ZX0sImlhdCI6MTY3Nzg2NDgzNjQ5MSwiZXhwIjoxNjc3ODY2MDQ2MDkxfQ.gwJQwm5Z3srQNDHb4tr9a8gWK5hb6XI8o_10RVflwiw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/orders",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Update Order To Delivered for Admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsiaWQiOiI2NDAxY2RmMmM4NTlhZGVhMmMzNWY3OGYiLCJ2ZXJpZmllZCI6dHJ1ZX0sImlhdCI6MTY3Nzg2NDgzNjQ5MSwiZXhwIjoxNjc3ODY2MDQ2MDkxfQ.gwJQwm5Z3srQNDHb4tr9a8gWK5hb6XI8o_10RVflwiw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/orders/64022fc3b4db4bfc789c959d/deliver",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"orders",
+								"64022fc3b4db4bfc789c959d",
+								"deliver"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
