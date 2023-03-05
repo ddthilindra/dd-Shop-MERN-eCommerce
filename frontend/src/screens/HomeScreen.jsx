@@ -6,13 +6,14 @@ import Loader from '../components/Loader';
 import Message from '../components/Message';
 import Paginate from '../components/Paginate';
 import { listProducts } from '../redux/actions/productActions';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import ProductCarousel from '../components/ProductCarousel';
 import Meta from './Meta';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
   const params = useParams();
+  const { keyword } = params;
 
   const pageNumber = params.pageNumber || 1;
 
@@ -20,13 +21,19 @@ const HomeScreen = () => {
   const { loading, error, products, page, pages } = productList;
 
   useEffect(() => {
-    dispatch(listProducts(pageNumber));
-  }, [dispatch, pageNumber]);
+    dispatch(listProducts(keyword, pageNumber));
+  }, [dispatch, keyword, pageNumber]);
 
   return (
     <>
-    <Meta />
-    { /*!keyword &&*/ <ProductCarousel /> }
+      <Meta />
+      {!keyword ? (
+        <ProductCarousel />
+      ) : (
+        <Link to='/' className='btn btn-light'>
+          Go Back
+        </Link>
+      )}
       <h1>Latest Product</h1>
       {loading ? (
         <Loader />
@@ -41,7 +48,11 @@ const HomeScreen = () => {
               </Col>
             ))}
           </Row>
-          <Paginate pages={pages} page={page} />
+          <Paginate
+            pages={pages}
+            page={page}
+            keyword={keyword ? keyword : ''}
+          />
         </>
       )}
     </>

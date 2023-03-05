@@ -18,6 +18,7 @@ const ProductListScreen = () => {
   const navigate = useNavigate();
   const params = useParams();
 
+  // get page number from url parameter
   const pageNumber = params.pageNumber || 1;
 
   // get product list from state
@@ -56,7 +57,7 @@ const ProductListScreen = () => {
     if (successCreate) {
       navigate(`/admin/product/${createdProduct._id}/edit`);
     } else {
-      dispatch(listProducts(pageNumber));
+      dispatch(listProducts('', pageNumber));
     }
   }, [dispatch, userInfo, navigate, successDelete, successCreate, createdProduct, pageNumber]);
 

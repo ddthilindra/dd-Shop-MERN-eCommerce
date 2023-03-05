@@ -3,9 +3,12 @@ import { LinkContainer } from 'react-router-bootstrap'; // stop the reload the p
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../redux/actions/userActions';
+import SearchBox from './SearchBox';
+import { useParams } from 'react-router-dom';
 
 const Header = () => {
   const dispatch = useDispatch();
+  const params = useParams();
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -22,6 +25,7 @@ const Header = () => {
           </LinkContainer>
           <Navbar.Toggle aria-controls='navbarScroll' />
           <Navbar.Collapse id='navbarScroll'>
+          <SearchBox />
             <Nav
               // ml-auto allign the menu item to left
               className='ml-auto my-2 my-lg-0'

@@ -24,11 +24,11 @@ import {
 } from '../constants/productConstants';
 
 // PRODUCT LIST ACTION CREATOR
-export const listProducts = (pageNumber='') => async (dispatch) => {
+export const listProducts = (keyword = '', pageNumber = '') => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST });
 
-    const { data } = await axios.get(`/api/products?pageNumber=${pageNumber}`);
+    const { data } = await axios.get(`/api/products?keyword=${keyword}&pageNumber=${pageNumber}`);
 
     dispatch({
       type: PRODUCT_LIST_SUCCESS,
